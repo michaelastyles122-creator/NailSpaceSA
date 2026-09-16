@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NailSpace South Africa</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8fb;
+      color: #2d2026;
+    }
+
+    header {
+      background: #f6d6e5;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 38px;
+    }
+
+    header p {
+      margin: 10px 0 0;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 25px 20px;
+    }
+
+    .search-area {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px;
+      margin: 7px 0;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      font-size: 15px;
+    }
+
+    .styles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .style-button {
+      border: none;
+      background: #f1d9e5;
+      padding: 9px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .style-button:hover {
+      background: #e9bfd3;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .nail-image {
+      height: 220px;
+      background: linear-gradient(135deg, #f8d8e8, #ead8f5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+    }
+
+    .card-content {
+      padding: 17px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .province {
+      font-size: 14px;
+      color: #765968;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #f1d9e5;
+    }
+
+    .buttons button:hover {
+      background: #e9bfd3;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+      background: #f6d6e5;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>💅 NailSpace</h1>
+  <p>Discover beautiful nail art from nail technicians across South Africa 🇿🇦</p>
+</header>
+
+<div class="container">
+
+  <div class="search-area">
+    <h2>Find your next nail look</h2>
+
+    <input
+      type="text"
+      id="search"
+      placeholder="Search nail techs or nail styles..."
+      onkeyup="filterCards()"
+    >
+
+    <select id="province" onchange="filterCards()">
+      <option value="">All South African Provinces</option>
+      <option>Gauteng</option>
+      <option>Western Cape</option>
+      <option>KwaZulu-Natal</option>
+      <option>Eastern Cape</option>
+      <option>Free State</option>
+      <option>Limpopo</option>
+      <option>Mpumalanga</option>
+      <option>North West</option>
+      <option>Northern Cape</option>
+    </select>
+
+    <div class="styles">
+      <button class="style-button" onclick="chooseStyle('')">All</button>
+      <button class="style-button" onclick="chooseStyle('French')">French</button>
+      <button class="style-button" onclick="chooseStyle('Acrylic')">Acrylic</button>
+      <button class="style-button" onclick="chooseStyle('Gel')">Gel</button>
+      <button class="style-button" onclick="chooseStyle('Chrome')">Chrome</button>
+      <button class="style-button" onclick="chooseStyle('Nail Art')">Nail Art</button>
+    </div>
+  </div>
+
+  <div class="gallery" id="gallery">
+
+    <div class="card" data-province="Gauteng" data-style="French">
+      <div class="nail-image">💅🏻</div>
+      <div class="card-content">
+        <h3>Glossy French Tips</h3>
+        <p class="province">📍 Sandton, Gauteng</p>
+        <p>Classic French manicure with a modern finish.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="Western Cape" data-style="Chrome">
+      <div class="nail-image">💅🏽</div>
+      <div class="card-content">
+        <h3>Pink Chrome</h3>
+        <p class="province">📍 Cape Town, Western Cape</p>
+        <p>Shiny chrome nails with a soft pink finish.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="KwaZulu-Natal" data-style="Nail Art">
+      <div class="nail-image">💅🏿</div>
+      <div class="card-content">
+        <h3>Creative Nail Art</h3>
+        <p class="province">📍 Durban, KwaZulu-Natal</p>
+        <p>Fun detailed nail art for a bold look.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="Eastern Cape" data-style="Gel">
+      <div class="nail-image">💅🏾</div>
+      <div class="card-content">
+        <h3>Soft Gel Set</h3>
+        <p class="province">📍 Gqeberha, Eastern Cape</p>
+        <p>Elegant gel nails with a soft natural finish.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="Free State" data-style="Acrylic">
+      <div class="nail-image">💅🏽</div>
+      <div class="card-content">
+        <h3>Elegant Acrylics</h3>
+        <p class="province">📍 Bloemfontein, Free State</p>
+        <p>Beautiful acrylic nails for any occasion.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="Limpopo" data-style="Nail Art">
+      <div class="nail-image">💅🏾</div>
+      <div class="card-content">
+        <h3>Statement Nail Art</h3>
+        <p class="province">📍 Polokwane, Limpopo</p>
+        <p>Creative designs inspired by South African style.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="Mpumalanga" data-style="French">
+      <div class="nail-image">💅🏿</div>
+      <div class="card-content">
+        <h3>Modern French</h3>
+        <p class="province">📍 Mbombela, Mpumalanga</p>
+        <p>A fresh twist on the classic French manicure.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="North West" data-style="Chrome">
+      <div class="nail-image">💅🏻</div>
+      <div class="card-content">
+        <h3>Glazed Chrome</h3>
+        <p class="province">📍 Rustenburg, North West</p>
+        <p>High-shine glazed chrome nails.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-province="Northern Cape" data-style="Gel">
+      <div class="nail-image">💅🏽</div>
+      <div class="card-content">
+        <h3>Natural Gel</h3>
+        <p class="province">📍 Kimberley, Northern Cape</p>
+        <p>Simple, clean and elegant gel nails.</p>
+
+        <div class="buttons">
+          <button onclick="like(this)">♡ Like</button>
+          <button onclick="save(this)">🔖 Save</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p><strong>NailSpace South Africa</strong></p>
+  <p>Connecting clients with nail artists across all nine provinces.</p>
+  <p>For privacy, nail technicians should only share a full street address if they are comfortable doing so.</p>
+</footer>
+
+<script>
+  let selectedStyle = "";
+
+  function chooseStyle(style) {
+    selectedStyle = style;
+    filterCards();
+  }
+
+  function filterCards() {
+    const search = document.getElementById("search").value.toLowerCase();
+    const province = document.getElementById("province").value;
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      const cardProvince = card.dataset.province;
+      const cardStyle = card.dataset.style;
+
+      const matchesSearch = text.includes(search);
+      const matchesProvince = !province || cardProvince === province;
+      const matchesStyle = !selectedStyle || cardStyle === selectedStyle;
+
+      card.style.display =
+        matchesSearch && matchesProvince && matchesStyle
+          ? "block"
+          : "none";
+    });
+  }
+
+  function like(button) {
+    if (button.innerText.includes("♡")) {
+      button.innerText = "♥ Liked";
+    } else {
+      button.innerText = "♡ Like";
+    }
+  }
+
+  function save(button) {
+    if (button.innerText.includes("🔖 Save")) {
+      button.innerText = "✓ Saved";
+    } else {
+      button.innerText = "🔖 Save";
+    }
+  }
+</script>
+
+</body>
+  </html>
